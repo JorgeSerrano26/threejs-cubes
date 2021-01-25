@@ -1,11 +1,19 @@
-import React, { useState, useEffect, useRef } from 'react'
-import { useSpring } from '@react-spring/core'
-import { a } from "@react-spring/three"
+import React, { useState, useEffect, useRef } from 'react';
+import { useSpring } from '@react-spring/core';
+import { a } from "@react-spring/three";
+
+const colors = [
+  '#e45858',
+  '#50c878',
+  '#e5c900'
+]
+
 
 export const Box = ({ position }) => {
-  const [ active, setActive] = useState(0)
-  const activeRef = useRef(active)
-  activeRef.current = active
+  const [color, setColor] = useState('#e45858');
+  const [active, setActive] = useState(0);
+  const activeRef = useRef(active);
+  activeRef.current = active;
 
   useEffect(() => {
     let timeout
@@ -28,18 +36,28 @@ export const Box = ({ position }) => {
 
   const scale = spring.to([0, 1], [1, 2])
   const rotation = spring.to([0, 1], [0, Math.PI])
-  const color = spring.to([0, 1], ["#50c878", "#e45858"])
+  //const color = spring.to([0, 1], ["#50c878", "#e45858"]);
 
   return (
     <a.mesh
+      onClick={() => {
+        const min = 0;
+        const max = colors.length;
+        let i, num;
+        do {
+          num = Math.random() * (max - min) + min;
+          i = Math.floor(num);
+        } while (colors[i] === color);
+        setColor(colors[i]);
+      }}
       rotation-y={rotation}
       scale-x={scale}
       scale-y={scale}
       scale-z={scale}
       position={position}
     >
-      <boxBufferGeometry attach="geometry" args={[1, 1, 1]}/>
-      <a.meshStandardMaterial roughness={0.5} attach="material" color={color}/>
+      <boxBufferGeometry attach="geometry" args={[1, 1, 1]} />
+      <a.meshStandardMaterial roughness={0.5} attach="material" color={color} />
     </a.mesh>
   )
 }

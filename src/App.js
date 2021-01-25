@@ -1,3 +1,4 @@
+import { OrbitControls } from "drei";
 import React from "react";
 import { Canvas } from "react-three-fiber";
 import { Box } from "./Box";
@@ -10,6 +11,7 @@ function App() {
       {[-3, 0, 3].map((x) =>
         [-3, 0, 3].map((z) => <Box position={[x, 0, z]} />)
       )}
+      <OrbitControls />
     </Canvas>
   );
 }
