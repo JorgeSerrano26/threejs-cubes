@@ -40,6 +40,7 @@ export const Box = ({ position }) => {
 
   return (
     <a.mesh
+      castShadow
       onClick={() => {
         const min = 0;
         const max = colors.length;
